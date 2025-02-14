@@ -6,18 +6,21 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import img1 from "/google/pic-1.png";
-import img2 from "/google/pic-2.png";
-import img3 from "/google/pic-1.png";
-import img4 from "/google/pic-1.png";
+// import img1 from "/google/pic-1.png";
+// import img2 from "/google/pic-2.png";
+// import img3 from "/google/pic-1.png";
+// import img4 from "/google/pic-1.png";
 import { Element } from "react-scroll";
 
 const GoogleReview = () => {
   const reviews = [
-    { img: img1, text: "Great service and ambiance!", name: "Atul Uniyal" },
-    { img: img2, text: "The service was incredible!", name: "Akhilesh" },
-    { img: img3, text: "Amazing experience overall!", name: "Soni Negi" },
-    { img: img4, text: "Highly recommend this place!", name: "Raj Mehra" },
+    {  text: "⭐⭐⭐⭐⭐ The 100 LPH RO system we purchased is working flawlessly. The water quality is excellent, and the installation was done professionally. Highly recommended!", name: "Atul Uniyal" },
+    {  text: "⭐⭐⭐⭐⭐ Shreeansh Aqua Solutions provided us with the best RO system for our office. Great service and quick response!", name: "Priya Verma, Haridwar" },
+    {  text: "⭐⭐⭐⭐⭐ I installed the 50 LPH RO system at my restaurant, and the water is crystal clear. Best investment ever!", name: "Soni Negi" },
+    {  text: "⭐⭐⭐⭐⭐ Their domestic RO purifier is compact, efficient, and affordable. My family is happy with the taste of the water", name: "Raj Mehra" },
+    {  text: " ⭐⭐⭐⭐⭐ The RO system with a hot and cold dispenser is a game-changer. Perfect for my office needs!", name: "Raj Mehra" },
+    {  text: "Highly recommend this place!", name: "Rohit Mehta, Rishikesh" },
+    {  text: "Highly recommend this place!", name: "Raj Mehra" },
   ];
 
   return (
@@ -40,17 +43,17 @@ const GoogleReview = () => {
               >
                 <div className="p-2">
                   <Card className="rounded-lg shadow-md">
-                    <img
+                    {/* <img
                       src={review.img}
                       alt={review.name}
                       className="w-full object-cover rounded-t-lg"
-                    />
-                    {/* <CardContent className="p-4">
+                    /> */}
+                    <CardContent className="p-4">
                       <h3 className="text-xl font-semibold text-[#1B1F3B]">
                         {review.name}
                       </h3>
                       <p className="text-gray-600 mt-2">{review.text}</p>
-                    </CardContent> */}
+                    </CardContent>
                   </Card>
                 </div>
               </CarouselItem>

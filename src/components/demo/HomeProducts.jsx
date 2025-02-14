@@ -4,7 +4,7 @@ const HomeProducts = () => {
   const products = [ 
     {
       heading: "Low power consumption for economical operation",
-      img: "/new/img-4.png",
+      img: "/new/img-1.png",
       name: "New Grand Plus with UF & Minerals",
       offers: "Suitable for domestic use, providing safe drinking water for households",
       button: "Explore Now",
@@ -12,7 +12,7 @@ const HomeProducts = () => {
     },
     {
       heading: "Storage purifier uv based",
-      img: "/new/img-3.png",
+      img: "/new/img-2.png",
       name: "Aquafresh UV-Based Storage Purifier",
       offers: "Chemical-Free Purification:",
       button: "Explore Now",
@@ -20,7 +20,7 @@ const HomeProducts = () => {
     },
     {
       heading: "Removes up to 99% of dissolved salts, chemicals, and impurities",
-      img: "/new/img-1.png",
+      img: "/new/img11.jpg",
       name: "1000 LPH RO System",
       offers: "Reduces plastic waste associated with bottled water consumption",
       button: "Explore Now",
@@ -28,7 +28,7 @@ const HomeProducts = () => {
     },
     {
       heading: "Stainless steel frame for durability and corrosion resistance.",
-      img: "/new/img-2.png",
+      img: "/new/img22.jpg",
       name: "500 LPH RO System",
       offers:
         "Removes up to 99% of contaminants including dissolved salts, bacteria, and viruses.",
@@ -38,7 +38,7 @@ const HomeProducts = () => {
     },
     {
       heading: "Multi-stage filtration",
-      img: "/domestic-ro/img-9.jpg",
+      img: "/new/img-5.png",
       name: "Ozone RO Water Purifier",
       offers: "With a 16-liter storage capacity",
       button: "Explore Now",
@@ -46,7 +46,7 @@ const HomeProducts = () => {
     },
     {
       heading: "Low Maintenance",
-      img: "/new/img-5.png",
+      img: "/new/img-2.png",
       name: "Hi-flow Water Purifier System",
       offers: "Standardized connections for easy installation",
       button: "Explore Now",
@@ -57,7 +57,9 @@ const HomeProducts = () => {
   return (
     <div className="px-4 md:px-8 bg-white py-4">
       <h1 className="text-center font-bold text-2xl md:text-3xl py-3 md:py-4 pb-4">
-        Explore Our Products
+      Our Domestic & Commercial RO
+PRODUCTS
+
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

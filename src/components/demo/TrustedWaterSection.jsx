@@ -29,7 +29,7 @@ const features = [
 
 const TrustedWaterSection = () => {
   return (
-    <div className="bg-gradient-to-r from-blue-100 via-indigo-200 to-purple-300 py-16 px-6 md:px-16 lg:px-32">
+    <div className="bg-gradient-to-r from-100 mt-80 via-indigo-200 to-purple-300 py-16 px-6 md:px-16 lg:px-32 pt-40">
       {/* Title */}
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800">

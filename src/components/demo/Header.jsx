@@ -51,8 +51,10 @@ const Header = () => {
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#2C3E50]">
               <div name="home" className="text-lg">
-                <span className="text-2xl md:text-3xl font-bold font">RO</span>{" "}
-                <span className="text-2xl md:text-3xl font-bold">HUB</span>
+                <span className="text-2xl md:text-3xl font-bold font">RO</span>
+                <span className="text-2xl md:text-3xl font-bold">HUB.in</span>
+             <br/> <b>Shreeansh Aqua Solutions</b>
+             {"  "}<span>Phone: +91-7579008065</span>
               </div>
             </span>
           </Link>

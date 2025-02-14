@@ -13,7 +13,7 @@ import WaterHeaderNext from "./WaterHeaderNext.jsx";
 const WaterPurifier = () => {
   const headerData = {
     title: "Water Purifier",
-    img: "/water-purifier/img-1.png",
+    img: "/water-purifier/img11.png",
     firstDetails: "Suitable for Home, Office & ",
     secondDetails: "Any place with Customizable Purifier.",
     bold: "Removes contaminants such as heavy metals, chlorine, and other impurities",

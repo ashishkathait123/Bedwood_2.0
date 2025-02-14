@@ -7,7 +7,7 @@ const HomeClint = () => {
     { img: "/aboutus/client-logo/logo-2.png", alt: "VH Logo" },
     { img: "/aboutus/client-logo/logo-3.png", alt: "Sarovar" },
     { img: "/aboutus/client-logo/logo-4.png", alt: "Indra Gandhi" },
-    { img: "/aboutus/client-logo/logo-5.png", alt: "ICFAI" },
+    { img: "/aboutus/client-logo/logo-5.png", alt: "ICFAI"  },
     { img: "/aboutus/client-logo/logo-6.png", alt: "IBDI Bank" },
     { img: "/aboutus/client-logo/logo-7.png", alt: "Hometel Roorkee" },
   ];
@@ -28,7 +28,7 @@ const HomeClint = () => {
             <img
               src={client.img}
               alt={client.alt}
-              className="max-h-16 md:max-h-24 object-contain"
+              className="max-h-16 md:max-h-28 object-contain"
             />
           </div>
         ))}
