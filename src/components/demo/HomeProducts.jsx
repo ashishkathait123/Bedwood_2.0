@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const HomeProducts = () => {
-  const products = [ 
+  const products = [
     {
       heading: "Low power consumption for economical operation",
       img: "/new/img-1.png",
@@ -14,7 +14,7 @@ const HomeProducts = () => {
       heading: "Storage purifier uv based",
       img: "/new/img-2.png",
       name: "Aquafresh UV-Based Storage Purifier",
-      offers: "Chemical-Free Purification:",
+      offers: "Chemical-Free Purification",
       button: "Explore Now",
       bgClass: "bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600",
     },
@@ -30,11 +30,9 @@ const HomeProducts = () => {
       heading: "Stainless steel frame for durability and corrosion resistance.",
       img: "/new/img22.jpg",
       name: "500 LPH RO System",
-      offers:
-        "Removes up to 99% of contaminants including dissolved salts, bacteria, and viruses.",
+      offers: "Removes up to 99% of contaminants including dissolved salts, bacteria, and viruses.",
       button: "Explore Now",
-      bgClass:
-        "bg-gradient-to-r from-yellow-500 via-yellow-550 to-yellow-600",
+      bgClass: "bg-gradient-to-r from-yellow-500 via-yellow-550 to-yellow-600",
     },
     {
       heading: "Multi-stage filtration",
@@ -55,32 +53,29 @@ const HomeProducts = () => {
   ];
 
   return (
-    <div className="px-4 md:px-8 bg-white py-4">
-      <h1 className="text-center font-bold text-2xl md:text-3xl py-3 md:py-4 pb-4">
-      Our Domestic & Commercial RO
-PRODUCTS
-
+    <div className="px-4 md:px-8 bg-white py-6">
+      <h1 className="text-center font-bold text-2xl md:text-3xl py-3 md:py-4">
+        Our Domestic & Commercial RO PRODUCTS
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product, index) => (
           <div
             key={index}
-            className={`${product.bgClass} lg:p-4 py-4 px-2 rounded-lg shadow-md flex flex-col`}
+            className={`${product.bgClass} p-4 md:p-6 rounded-lg shadow-md flex flex-col items-center`}
           >
-            <h2 className="text-xl md:text-2xl text-center font-semibold mb-3">
+            <h2 className="text-lg md:text-xl text-center font-semibold mb-3 text-white">
               {product.heading}
             </h2>
             <img
               src={product.img}
               alt={product.name}
-              className="w-full lg:h-96 object-contain mb-3"
+              className="w-full h-52 md:h-64 lg:h-72 object-contain mb-4"
             />
-            <p className="text-xl font-medium">{product.name}</p>
-            <p className="text-sm text-gray-900 font-bold mb-4">{product.offers}</p>
-            <Link to="/services" className="flex lg:justify-center">
-              {" "}
-              <button className="self-center bg-white text-black px-4 py-2 rounded hover:bg-gray-100">
+            <p className="text-lg md:text-xl font-medium text-white text-center">{product.name}</p>
+            <p className="text-sm text-gray-100 font-bold mb-4 text-center">{product.offers}</p>
+            <Link to="/services">
+              <button className="bg-white text-black px-4 py-2 rounded hover:bg-gray-100 transition">
                 {product.button}
               </button>
             </Link>

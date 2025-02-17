@@ -9,7 +9,7 @@ const AboutUs = () => {
         {/* Left Side - Image */}
         <div className="w-full md:w-1/2 mb-6 md:mb-0 flex justify-center">
           <img
-            src="/new/img-2.png"
+            src="/new/About11.jpg"
             alt="Shreeansh Aqua Solutions"
             className="rounded-lg shadow-lg w-full max-w-md"
           />
