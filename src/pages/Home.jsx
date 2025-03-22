@@ -1,37 +1,60 @@
-import AboutClient from "@/components/demo/AboutClient";
-import GoogleReview from "@/components/demo/GoogleReview";
-import HomeBanner from "@/components/demo/HomeBanner";
-import HomeClient2 from "@/components/demo/HomeClient2";
-import HomeClint from "@/components/demo/HomeClint";
-import AboutUs from "@/components/demo/AboutUs";
-import HomeProducts from "@/components/demo/HomeProducts";
-// import { SectionHero } from "@/components/demo/SectionHero.jsx";
-import TopSection from "@/components/demo/TopSection.jsx";
-import TrustedWaterSection from "@/components/demo/TrustedWaterSection";
-import WhyUs from "@/components/demo/WhyUs";
-import ReactSlikSlider from "../components/demo/ReactSlikSlider";
-import LeftRightBox from "@/components/demo/LeftRightBox";
-import HomeNewBanner from "@/components/demo/HomeNewBanner";
+import React from "react";
+import { useState, useEffect } from "react";
 
+import DiscountStrip from "./DiscountStrip";
+import Navbar from "./Navbar";
+import Banner from "./discountbanner/Banner";
+import Footer from "./Footer";
+import Hero from "./Hero"; // Import the new Hero component
+import Banner2 from "./discountbanner/Banner2";
+import Card from "@/components/brandcards/cards";
+import BestSellerSection from "@/components/products/bestsellercards/BestSellerSection";
+import TopPicksSection from "./top-picks/Top-picks";
+import ReviewSection from "@/components/reviews/ReviewSection";
+import EssentialsSection from "@/components/products/essential/cards";
+import CollectionsSection from "@/components/products/collerctions/CollectionsSection";
+import BedwoodFaq from "@/components/faq/bedwoodfaq";
+import PopUpForm from "@/components/form/popform";
+import BuyOnPhoneButton from "./BuyOnPhoneButton";
+import WhatsApp from "./Whatsapp";
 const Home = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  useEffect(() => {
+    // Show popup when the website loads
+    setShowPopup(true);
+  }, []);
   return (
     <>
-      <TopSection />
-      {/* <SectionHero /> */}
-      {/* <ReactSlikSlider /> */}
-      {/* <HomeBanner /> */}
-      <HomeNewBanner />
-      {/* <LeftRightBox /> */}
+      <DiscountStrip />
+      {/* <Header1 /> */}
+      <Navbar />
+<Hero />
+ <Banner2 />
+      {/*Hero Section of the (Replaces old slider and side banners) */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+       
+        {showPopup && <PopUpForm onClose={() => setShowPopup(false)} />}
 
-      <TrustedWaterSection />
-      <HomeProducts />
-      <WhyUs />
-      <HomeClint />
-      <HomeClient2 />
-      <AboutClient />
-      <AboutUs></AboutUs>
-      <GoogleReview />
+        <TopPicksSection />
+        <CollectionsSection />
+        <EssentialsSection />
+
+        {/* <ProductList /> */}
+
+        <BestSellerSection />
+<BuyOnPhoneButton />
+        <Banner />
+        <WhatsApp />
+        <Card />
+        <ReviewSection />
+
+        {/* <FAQ/> */}
+      </div>
+      <BedwoodFaq/>
+      <Footer />
     </>
   );
 };
+
 export default Home;

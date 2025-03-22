@@ -1,0 +1,25 @@
+import React from 'react';
+
+const Card = ({ image, title, paragraph, link }) => {
+  return (
+    <a
+      href={link}
+      className="relative block overflow-hidden rounded-lg group m-2 w-fit h-48 xl:h-80 md:h-72"
+    >
+      {/* Image */}
+      <img
+        src={image}
+        alt={title}
+        className="w-full h-full object-contain transform transition-transform duration-300 group-hover:scale-105"
+      />
+
+      {/* Overlay Text */}
+      <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white text-center p-4">
+        <h3 className="text-sm md:text-base font-bold">{title}</h3>
+        <p className="text-xs md:text-sm mt-2">{paragraph}</p>
+      </div>
+    </a>
+  );
+};
+
+export default Card;
