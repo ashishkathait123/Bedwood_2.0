@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import axios from "axios";
-
+import {  FaUserTie } from "react-icons/fa";
+import CompanyAssociateForm from "@/components/form/assiociate";
+import CartDrawer from "@/components/cart/CartDrawer";
 const Navbar = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,21 +12,29 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+  const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   const updateCartCount = () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartCount(cart.length); // or sum up the quantities if necessary
   };
-
+  const handleRemoveItem = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
+    // const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart]);
+  
   // Run this effect when the component mounts or when the cart changes
   useEffect(() => {
     updateCartCount();
   }, []);
  useEffect(() => {
   axios
-    .get("https://experthometutorsacademy.com/getProducts.php")
+    .get(`https://experthometutorsacademy.com/getProducts.php`)
     .then((response) => {
-      console.log("API Response:", response.data);
       setCategories(response.data.categories || []);
     })
     .catch((error) => console.error("Error fetching data:", error));
@@ -71,14 +81,19 @@ const handleSubCategoryClick = (subcategory) => {
             🔍
           </button>
         </div>
-        <div className="flex items-center gap-4">
-          <Link to="/cart" className="relative flex items-center">
-            🛒
+        <div className="flex items-center gap-4"
+        >
+          <div className="relative flex items-center"
+          >
+            <button 
+ >🛒 </button>
+          
+            
             {/* Display the cart count dynamically */}
             <span className="absolute -top-1 -right-2 text-xs text-red-500">
               {cartCount}
             </span>
-          </Link>
+          </div>
 
           <button
             className="md:hidden text-gray-700 p-2"
@@ -87,6 +102,9 @@ const handleSubCategoryClick = (subcategory) => {
             {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>
         </div>
+        <button className="relative flex items-center justify-center rounded-full ml-3" onClick={openModal}>
+            <FaUserTie className="text-gray-600 text-xl mt-2" />
+          </button>
       </div>
 
       <div className="hidden md:flex items-center justify-center space-x-6 border-t bg-gray-50 py-2">
@@ -120,7 +138,7 @@ const handleSubCategoryClick = (subcategory) => {
       {menuOpen && (
         <div className="md:hidden bg-white shadow-lg p-4 h-96 overflow-y-auto rounded-lg">
         {/* Mobile Search Bar */}
-    <div className="relative mb-4">
+     <div className="relative mb-4">
       <input
         placeholder="Search Products..."
         className="w-full p-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -135,7 +153,7 @@ const handleSubCategoryClick = (subcategory) => {
       >
         🔍
       </button>
-    </div>
+      </div>
           {categories.map((category) => (
             <div key={category.name} className="border-b py-2">
               <button
@@ -164,6 +182,27 @@ const handleSubCategoryClick = (subcategory) => {
                 )}
             </div>
           ))}
+        </div>
+      )}
+ {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white rounded-lg shadow-lg p-6 md:w-1/3 w-full">
+            <button
+              onClick={closeModal}
+              className="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-2xl"
+            >
+              ×
+            </button>
+            <CompanyAssociateForm onClose={closeModal} />
+          </div>
+          {cartDrawerOpen && (
+        <CartDrawer
+          cart={cart}
+          onClose={() => setCartDrawerOpen(false)}
+          onRemoveItem={handleRemoveItem}
+          // onUpdateQuantity={handleUpdateQuantity}
+        />
+      )}
         </div>
       )}
     </nav>

@@ -9,29 +9,22 @@ import Navbar from "@/pages/Navbar";
 import Footer from "@/pages/Footer";
 
 const ProductListing2 = () => {
-  const { category = "All", subcategory = "" } = useParams();
-  const location = useLocation();
+  const { category = "All" } = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const { setSelectedProduct } = useProduct();
+  const cart = useMemo(() => JSON.parse(localStorage.getItem("cart")) || [], []);
 
   const [selectedSortOption, setSelectedSortOption] = useState("1");
   const [selectedLayout, setSelectedLayout] = useState("2x2");
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
 
-  const getSubcategoryFromUrl = () => {
-    const params = new URLSearchParams(location.search);
-    return params.get('subcategory');
-  };
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const subcategory = getSubcategoryFromUrl();
-        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php${subcategory ? `?subcategory=${subcategory}` : ''}`);
+        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php?category=${category}&limit=60`,{mode: 'no-cors'});
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
         setProducts(Array.isArray(data?.products) ? data.products : []);
@@ -41,21 +34,15 @@ const ProductListing2 = () => {
       }
     };
     fetchProducts();
-  }, [location.search]);
-
-  // Filter products by category
-  const filteredProducts = useMemo(() => {
-    if (category === "All") return products;
-    return products.filter(product => product.category?.toLowerCase() === category.toLowerCase());
-  }, [products, category]);
+  }, [category]);
 
   const sortedProducts = useMemo(() => {
-    return [...filteredProducts].sort((a, b) => {
+    return [...products].sort((a, b) => {
       if (selectedSortOption === "1") return a.price - b.price;
       if (selectedSortOption === "-1") return b.price - a.price;
       return 0;
     });
-  }, [filteredProducts, selectedSortOption]);
+  }, [products, selectedSortOption]);
 
   const paginatedProducts = useMemo(() => {
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -70,14 +57,11 @@ const ProductListing2 = () => {
   };
 
   const handleAddToCart = (product, quantity) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      const updatedCart = existingItem
-        ? prevCart.map((item) => item.id === product.id ? { ...item, quantity } : item)
-        : [...prevCart, { ...product, quantity }];
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return updatedCart;
-    });
+    const existingItem = cart.find((item) => item.id === product.id);
+    const updatedCart = existingItem
+      ? cart.map((item) => item.id === product.id ? { ...item, quantity } : item)
+      : [...cart, { ...product, quantity }];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart]);
@@ -92,7 +76,7 @@ const ProductListing2 = () => {
         onLayoutChange={setSelectedLayout}
       />
       <h2 className="text-2xl font-bold mb-4 capitalize">
-        Showing products for {subcategory ? subcategory.replace("-", " ") : (category || "All Products").replace("-", " ")}
+        Showing products for {category.replace("-", " ")}
       </h2>
       <div className={`grid gap-4 ${
         selectedLayout === "1x1" ? "grid-cols-1" :
@@ -110,7 +94,7 @@ const ProductListing2 = () => {
             />
           ))
         ) : (
-          <p className="text-gray-500 col-span-full">No products found for this category or subcategory.</p>
+          <p className="text-gray-500 col-span-full">No products found for this category.</p>
         )}
       </div>
       <Pagination

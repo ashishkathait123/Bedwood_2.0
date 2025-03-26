@@ -17,8 +17,16 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
   const [notification, setNotification] = useState(null);
   const [isProductInCart, setIsProductInCart] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const getValueOrNA = (value) => (value ? value : 'N/A');
+  const getBooleanValue = (value) => value ? "Yes" : "No";
+  const [loading, setLoading] = useState(true); // Add loading state
 
+  const getValueOrNA = (value) => {
+    if (value === null || value === undefined || value === '') {
+      return "N/A";
+    }
+    return value;
+  };
+  
   const {
     control,
     handleSubmit,
@@ -63,7 +71,10 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
     📞 *Phone:* ${data.phone}
     📧 *Email:* ${data.email}
     🏠 *Address:* ${data.address}
-    `;    const whatsappURL = `https://wa.me/918630715936?text=${encodeURIComponent(message)}`;
+    `;
+    const whatsappURL = `https://wa.me/918630715936?text=${encodeURIComponent(
+      message
+    )}`;
     window.open(whatsappURL, "_blank");
   };
 
@@ -72,14 +83,27 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
   }, [initialCount]);
 
   useEffect(() => {
+    
     const fetchProduct = async () => {
       if (!id) return;
       try {
-        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php?id=${id}`);
+        setLoading(true); // Set loading state to true before fetching
+
+        const response = await fetch(
+          `https://experthometutorsacademy.com/getProducts.php?id=${id}&limit=350`
+        );
         const data = await response.json();
-        console.log("API Response:", data);
         if (data?.products && Array.isArray(data.products)) {
-          const product = data.products.find((p) => Number(p.id) === Number(id));
+          const product = data.products.find(
+            (p) => Number(p.id) === Number(id)
+          );
+          // const product = data.products.find((p) => String(p.id) === String(id));
+
+          if (!data || !Array.isArray(data.products)) {
+            console.error("Invalid API response:", data);
+            return;
+          }
+          
           if (product) {
             setSelectedProduct(product);
           } else {
@@ -90,9 +114,13 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
       } catch (error) {
         console.error("Error fetching product:", error);
         setSelectedProduct(null);
+        
+      }
+      finally {
+        setLoading(false); // Set loading state to false after the fetch
       }
     };
-    
+
     fetchProduct();
   }, [id]);
 
@@ -105,7 +133,9 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
         setNotification("This item is already in your cart!");
       }
       setTimeout(() => setNotification(null), 3000);
-      const existingItemIndex = prevCart.findIndex((item) => item.id === product.id);
+      const existingItemIndex = prevCart.findIndex(
+        (item) => item.id === product.id
+      );
       if (existingItemIndex !== -1) {
         const updatedCart = [...prevCart];
         updatedCart[existingItemIndex].quantity = quantity;
@@ -146,7 +176,7 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
       <Navbar />
       <main className="flex flex-col md:flex-row items-center pt-4 md:pt-6 px-4 md:px-8 lg:px-32">
         {/* Product Image */}
-        <div className="md:w-1/2 w-full flex justify-center items-center mb-4 md:mb-0">
+        <div className="md:w-1/2  w-full flex justify-center items-center mb-4 md:mb-0">
           <img
             src={selectedProduct.image_url}
             alt={selectedProduct.name}
@@ -164,8 +194,12 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
           <div className="relative">
             <hr className="my-2" />
             <div className="flex flex-col px-4">
-              <span className="text-sm uppercase text-orange-500">Today's Deal</span>
-              <span className="text-2xl font-bold text-black">Rs. {selectedProduct.price}</span>
+              <span className="text-sm uppercase text-orange-500">
+                Today's Deal
+              </span>
+              <span className="text-2xl font-bold text-black">
+                Rs. {selectedProduct.price}
+              </span>
             </div>
             <hr className="my-2" />
           </div>
@@ -175,14 +209,16 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
 
           {/* Quantity and Add to Cart */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center bg-gray-100 rounded-full px-2 py-1">
+          <div className="flex items-center bg-gray-100 rounded-full px-2 py-1">
               <button
                 className="h-8 w-8 flex items-center justify-center text-gray-500 hover:text-orange-600 transition rounded-full"
                 onClick={handleDecrement}
               >
                 -
               </button>
-              <span className="text-sm text-gray-700 font-medium w-10 text-center border-x-2">{count}</span>
+              <span className="text-sm text-gray-700 font-medium w-10 text-center border-x-2">
+                {count}
+              </span>
               <button
                 className="h-8 w-8 flex items-center justify-center text-gray-500 hover:text-orange-600 transition rounded-full"
                 onClick={handleIncrement}
@@ -195,7 +231,7 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
               className="bg-orange-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-orange-500 transition"
               onClick={() => handleAddToCart(selectedProduct, count)}
             >
-              🛒 {count > 0 ? "Update Cart" : "Add to Cart"}
+              🛒 {count > 0 ? "Add To Cart" : "update to Cart"}
             </button>
 
             <button
@@ -208,7 +244,9 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
 
           {/* Product Overview */}
           <div className="overflow-auto">
-            <h4 className="text-lg font-semibold mt-4 mb-2">Product Overview</h4>
+            <h4 className="text-lg font-semibold mt-4 mb-2">
+              Product Overview
+            </h4>
             <hr className="my-2" />
             <table className="table-auto w-full text-left">
             <tbody>
@@ -217,14 +255,18 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
     { label: "Name", value: getValueOrNA(selectedProduct.name) },
     { label: "Category", value: getValueOrNA(selectedProduct.category) },
     { label: "Subcategory", value: getValueOrNA(selectedProduct.subcategory) },
-    { label: "Price", value: `₹${getValueOrNA(selectedProduct.price)}` },
+    {
+      label: "Price",
+      value: isNaN(selectedProduct.price) 
+        ? "N/A" 
+        : `₹${parseFloat(selectedProduct.price).toFixed(2)}`,
+    },
     { label: "Color", value: getValueOrNA(selectedProduct.color) },
     { label: "Material", value: getValueOrNA(selectedProduct.material) },
     { label: "Storage", value: getValueOrNA(selectedProduct.storage) },
     { label: "Seater", value: getValueOrNA(selectedProduct.seater) },
     { label: "Shape", value: getValueOrNA(selectedProduct.shape) },
     { label: "Style", value: getValueOrNA(selectedProduct.style) },
-    // { label: "Features", value: getValueOrNA(selectedProduct.features) },
     { label: "Armrest", value: getValueOrNA(selectedProduct.armrest) },
     { label: "Foam", value: getValueOrNA(selectedProduct.foam) },
     { label: "Quantity Available", value: getValueOrNA(selectedProduct.quantity) },
@@ -234,14 +276,21 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
     { label: "Warranty", value: getValueOrNA(selectedProduct.warranty) },
     { label: "Brand", value: getValueOrNA(selectedProduct.brand) },
     { label: "Delivery Condition", value: getValueOrNA(selectedProduct.delivery_condition) },
-    { label: "Expert Assembly", value: selectedProduct.expert_assembly ? "Yes" : "No" },
+    {
+      label: "Expert Assembly",
+      value: getBooleanValue(selectedProduct.expert_assembly),
+    },
     { label: "SKU", value: getValueOrNA(selectedProduct.sku) },
     {
       label: "Image",
       value: selectedProduct.image_url ? (
-        <img src={selectedProduct.image_url} alt={selectedProduct.name || 'Product Image'} className="w-20 h-20 object-cover" />
+        <img
+          src={selectedProduct.image_url}
+          alt={getValueOrNA(selectedProduct.name)}
+          className="w-20 h-20 object-cover"
+        />
       ) : (
-        'N/A'
+        "N/A"
       ),
     },
   ].map((item, index) => (
@@ -251,6 +300,7 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
     </tr>
   ))}
 </tbody>
+
             </table>
           </div>
         </div>
@@ -262,41 +312,83 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
         </div>
       )}
 
-      {showModal && (
-        <div className="fixed inset-0 top-32 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg w-[90%] md:w-1/3">
-            <h3 className="text-xl font-bold text-center">Order Now</h3>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <Controller
-                name="name"
-                control={control}
-                render={({ field }) => <input {...field} className="w-full p-2 border border-gray-300 rounded" placeholder="Full Name" />}
-              />
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => <input {...field} className="w-full p-2 border border-gray-300 rounded" placeholder="Email" />}
-              />
-              <Controller
-                name="phone"
-                control={control}
-                render={({ field }) => <input {...field} className="w-full p-2 border border-gray-300 rounded" placeholder="Phone Number" />}
-              />
-              <Controller
-                name="address"
-                control={control}
-                render={({ field }) => <textarea {...field} className="w-full p-2 border border-gray-300 rounded" placeholder="Address" />}
-              />
-              <div className="flex justify-end">
-                <button type="submit" className="bg-green-600 text-white px-6 py-2 rounded-lg">Confirm Order</button>
-              </div>
-            </form>
-          </div>
+{showModal && (
+  <div className="fixed inset-0 top-32 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-white p-8 rounded-lg w-[90%] md:w-1/3">
+      <h3 className="text-xl font-bold text-center">Order Now</h3>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Full Name"
+            />
+          )}
+        />
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Email"
+            />
+          )}
+        />
+        <Controller
+          name="phone"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Phone Number"
+            />
+          )}
+        />
+        <Controller
+          name="address"
+          control={control}
+          render={({ field }) => (
+            <textarea
+              {...field}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Address"
+            />
+          )}
+        />
+        <div className="flex justify-between">
+          {/* Cancel Button */}
+          <button
+            type="button"
+            className="bg-gray-500 text-white px-6 py-2 rounded-lg"
+            onClick={() => setShowModal(false)}
+          >
+            Cancel
+          </button>
+          {/* Confirm Order Button */}
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-6 py-2 rounded-lg"
+          >
+            Confirm Order
+          </button>
         </div>
-      )}
+      </form>
+    </div>
+  </div>
+)}
 
       <ContactBanner />
-      <ProductGrid /> 
+      <ProductGrid
+        subcategory={selectedProduct.subcategory}
+        currentProductId={selectedProduct.id}
+      />
+
       <div
         className="fixed bottom-20 right-6 bg-blue-600 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg cursor-pointer"
         onClick={() => setCartDrawerOpen(true)}
@@ -308,7 +400,7 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
           </span>
         )}
       </div>
-      
+
       {cartDrawerOpen && (
         <CartDrawer
           cart={cart}

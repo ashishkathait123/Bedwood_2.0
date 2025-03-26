@@ -7,40 +7,39 @@ const cardData = [
     image: '/furniture/1.jpg',
     title: '',
     paragraph: '',
-    link: '/products/Beds/Single%20Bed?sort=1',
+    link: '/products?subcategory=Double+Bed&sort=1',
   },
   {
     image: '/furniture/2.jpg',
     title: '',
     paragraph: '',
-    link: '/products/Sofa/Living%20Sofa?sort=1',
+    link: '/products?subcategory=Living+Sofa&sort=1',
   },
   {
     image: '/furniture/3.jpg',
     title: '',
     paragraph: '',
-    link: '/products/Table/Dining%20Table?sort=1',
+    link: '/products?subcategory=Dining+Table&sort=1',
   },
   {
     image: '/furniture/4.jpg',
     title: '',
     paragraph: '',
-    link: '/products/Sofa/Room%20Sofa?sort=1',
+    link: '/products?subcategory=Room+Sofa&sort=1',
   },
   {
     image: '/furniture/5.jpg',
     title: '',
     paragraph: '',
-    link: '/products/Sofa/Hotel%20Sofa?sort=1',
+    link: '/products?subcategory=Hotel+Sofa&sort=1',
   },
   {
     image: '/furniture/6.jpg',
     title: '',
     paragraph: '',
-    link: '/products/Almirah/Modular%20Almirah?sort=1',
+    link: '/products?subcategory=Modular+Almirah&sort=1',
   },
 ];
-
 const BrandSection = () => {
   const navigate = useNavigate();
 

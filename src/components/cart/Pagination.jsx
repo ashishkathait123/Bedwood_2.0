@@ -16,7 +16,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   };
 
   return (
-    <div className="flex justify-center items-center my-8">
+    <div className="flex justify-center items-center my-4 sm:my-8 flex-wrap gap-2 sm:gap-4">
       {/* Left Arrow Button */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
@@ -29,7 +29,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       </button>
 
       {/* Page Numbers */}
-      <div className="flex items-center space-x-2">{renderPageNumbers()}</div>
+      <div className="flex items-center flex-wrap gap-2">{renderPageNumbers()}</div>
 
       {/* Right Arrow Button */}
       <button

@@ -21,6 +21,7 @@
     "emailjs-com": "^3.2.0",
     "embla-carousel-react": "^8.5.1",
     "flowbite-react": "^0.10.2",
+    "jspdf": "^3.0.1",
     "lucide-react": "^0.469.0",
     "mapbox-gl": "^3.9.1",
     "react": "^18.3.1",

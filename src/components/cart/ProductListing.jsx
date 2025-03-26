@@ -18,6 +18,7 @@ const ProductListing = () => {
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const { setSelectedProduct } = useProduct();
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const [selectedSortOption, setSelectedSortOption] = useState("1");
   const [selectedLayout, setSelectedLayout] = useState("2x2");
@@ -30,32 +31,35 @@ const ProductListing = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const subcategory = getSubcategoryFromUrl();
-        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php${subcategory ? `?subcategory=${subcategory}` : ''}`);
+        const subcategoryParam = getSubcategoryFromUrl();
+        const queryParams = new URLSearchParams();
+        
+        if (selectedCategory !== 'All') queryParams.append('category', selectedCategory);
+        if (subcategoryParam) queryParams.append('subcategory', subcategoryParam);
+        queryParams.append('limit', '80');
+    
+        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php?${queryParams.toString()}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
     
         const data = await response.json();
-        console.log("API Data:", data);
     
         if (Array.isArray(data?.products)) {
           setProducts(data.products);
         } else {
-          console.error("Products data is not an array:", data);
+          console.error('Products data is not an array:', data);
           setProducts([]);
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error);
         setProducts([]);
       }
     };
-    
-    
 
     fetchProducts();
-  }, [location.search]);
+  }, [selectedCategory, location.search]);
 
 
   const sortedProducts = useMemo(() => {
@@ -75,7 +79,7 @@ const ProductListing = () => {
     if (!product?.id) return console.error("Invalid product data.");
     setSelectedProduct(product);
     localStorage.setItem("selectedProduct", JSON.stringify(product));
-    navigate(`/product/${product.id}`);
+   navigate(`/product/${product.id}`);
   };
 
   const handleAddToCart = (product, quantity) => {

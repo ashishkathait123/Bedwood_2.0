@@ -7,7 +7,7 @@ import { ImTruck } from "react-icons/im";
 import { FaTruckFast } from "react-icons/fa6";
 import { TrackForm } from "@/components/form/trackform";
 const DiscountStrip = () => {
-  const whatsappNumber = "+91 96751 11719"; // Define your WhatsApp number
+  const whatsappNumber = "918630715936"; // Define your WhatsApp number
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to control popup visibility
 
   // Event handler for tracking button

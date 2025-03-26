@@ -3,52 +3,52 @@ import { Link, useNavigate } from "react-router-dom";
 
 const categories = [
   {
-    src: "https://api.bedwoodfurnishing.com/17285379219160.377031732726657.png",
+    src: "/furniture/TP1.png",
     alt: "Beds",
     title: "Beds",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17345463077000.6334857882503226.png",
+    src: "/furniture/TP2.png",
     alt: "Sofa",
     title: "Sofa",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17345460958320.7578627858783833.png",
+    src: "/furniture/TP3.png",
     alt: "Dining & Kitchen",
     title: "Dining & Kitchen",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17287277048310.5448024423156492.jpeg",
+    src: "/furniture/TP4.jpeg",
     alt: "Almirah",
     title: "Almirah",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17287279053670.03130171516561253.jpeg",
+    src: "/furniture/TP5.jpeg",
     alt: "Table",
     title: "Table",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17287279570800.399965434336647.jpeg",
+    src: "/furniture/TP6.jpeg",
     alt: "Study & Office",
     title: "Study & Office",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17287279974490.4662144902459344.jpeg",
+    src: "/furniture/TP7.jpeg",
     alt: "Furnishing",
     title: "Furnishing",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17287280826920.2828515321593075.jpeg",
+    src: "/furniture/TP8.jpeg",
     alt: "Outdoor",
     title: "Outdoor",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17287281872670.45440272288296146.jpeg",
+    src: "/furniture/TP9.jpeg",
     alt: "Modular",
     title: "Modular",
   },
   {
-    src: "https://api.bedwoodfurnishing.com/17287282372770.9811433838677206.jpeg",
+    src: "/furniture/TP10.jpeg",
     alt: "Wooden",
     title: "Wooden",
   },
@@ -57,23 +57,26 @@ const categories = [
 const UpdatePicksSection = () => {
   const scrollContainerRef = useRef(null);
   const [isScrolling, setIsScrolling] = useState(true);
-
+  const navigate = useNavigate();
+  const handleSubCategoryClick = (category) => {
+    navigate(`/products/${encodeURIComponent(category)}`);
+  };
   useEffect(() => {
     let scrollAmount = 0;
     const speed = 1.5;
     let animationFrameId;
 
-    const scroll = () => {
-      if (scrollContainerRef.current && isScrolling) {
-        const container = scrollContainerRef.current;
-        scrollAmount += speed;
-        container.scrollLeft = scrollAmount;
-        if (scrollAmount >= container.scrollWidth - container.clientWidth) {
-          scrollAmount = 0;
-        }
-      }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
+    // const scroll = () => {
+    //   if (scrollContainerRef.current && isScrolling) {
+    //     const container = scrollContainerRef.current;
+    //     scrollAmount += speed;
+    //     container.scrollLeft = scrollAmount;
+    //     if (scrollAmount >= container.scrollWidth - container.clientWidth) {
+    //       scrollAmount = 0;
+    //     }
+    //   }
+    //   animationFrameId = requestAnimationFrame(scroll);
+    // };
 
     animationFrameId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationFrameId);
@@ -104,6 +107,8 @@ const UpdatePicksSection = () => {
         {categories.map((cat, index) => (
           <Link
             key={index}
+            onClick={() => handleSubCategoryClick(cat.title)}
+
             to={`/products?category=${encodeURIComponent(cat.title)}`}
             className="flex flex-col items-center flex-shrink-0 cursor-pointer"
           >

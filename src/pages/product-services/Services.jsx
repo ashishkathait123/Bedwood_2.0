@@ -13,7 +13,6 @@ const ProductServices = () => {
         if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
   
         const data = await response.json();
-        console.log('API Response:', data);
   
         if (data.categories && Array.isArray(data.categories)) {
           setCategories(data.categories);

@@ -9,9 +9,9 @@ const bestSellers = [
   { image: '/bestsellerof/2.png', title: 'Best Seller 2', paragraph: 'Top trending product 2', link: '/products?subcategory=Dining+Table&sort=1' },
   { image: '/bestsellerof/3.png', title: 'Best Seller 3', paragraph: 'Top trending product 3', link: '/products?subcategory=Living+Sofa&sort=1' },
   { image: '/bestsellerof/4.png', title: 'Best Seller 4', paragraph: 'Top trending product 4', link: '/products?subcategory=Carving+Sofa&sort=1' },
-  { image: '/bestsellerof/5.png', title: 'Best Seller 5', paragraph: 'Top trending product 5', link: '/products?subcategory=Dressing+Table&sort=1' },
-  { image: '/bestsellerof/6.png', title: 'Best Seller 6', paragraph: 'Top trending product 6', link: '/products?subcategory=Wardrobe+Almirah&sort=1' },
-  { image: '/bestsellerof/7.png', title: 'Best Seller 7', paragraph: 'Top trending product 7', link: '/products/Table/Wooden%20Site%20Table?sort=1' },
+  { image: '/bestsellerof/5.png', title: 'Best Seller 5', paragraph: 'Top trending product 5', link: '/products?subcategory=Dressing+Tables&sort=1' },
+  { image: '/bestsellerof/6.png', title: 'Best Seller 6', paragraph: 'Top trending product 6', link: '/products?subcategory=Dining+Table&sort=1' },
+  { image: '/bestsellerof/7.png', title: 'Best Seller 7', paragraph: 'Top trending product 7', link: '/products?subcategory=Wardrobe+Almirah&sort=1' },
   { image: '/bestsellerof/8.png', title: 'Best Seller 8', paragraph: 'Top trending product 8', link: '/products?subcategory=Room+Sofa&sort=1' }
 ];
 

@@ -18,6 +18,7 @@ import PopUpForm from "@/components/form/popform";
 import BuyOnPhoneButton from "./BuyOnPhoneButton";
 import WhatsApp from "./Whatsapp";
 const Home = () => {
+
   const [showPopup, setShowPopup] = useState(false);
   useEffect(() => {
     // Show popup when the website loads

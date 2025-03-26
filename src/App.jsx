@@ -30,13 +30,14 @@ function App() {
         <Route path="/services" element={<ProductServices />} />
         <Route path="/cart" element={<CartDrawer />} />
         <Route path="/products/:category/:subcategory?" element={<ProductListing />} />
-        <Route path="/catalog" element={<Page/>} />  
+        <Route path="/catalogs" element={<Page/>} />  
         <Route path="/" element={<UpdatePicksSection />} />
 
         <Route path="/search/:query" element={<SearchResults />} />
-        <Route path="/products" element={<ProductListing />} />
-        {/* <Route path="/products" element={<ProductListing2 />} /> */}
+        <Route path="/products" element={<ProductListing/>} />
+        <Route path="/products/:category" element={<ProductListing />} />
 
+        <Route path="/product/:id" element={<ProductDetails />} />
 
         <Route path="/search" element={<SearchResults />} />     
            </Routes>

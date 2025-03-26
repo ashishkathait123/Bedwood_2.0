@@ -33,13 +33,11 @@ const SearchResults = () => {
     if (!query) return;
 
     const fetchProducts = async () => {
-      const apiURL = `https://experthometutorsacademy.com/getProducts.php?search=${encodeURIComponent(query)}`;
-      console.log("Fetching:", apiURL);
+      const apiURL = `https://experthometutorsacademy.com/getProducts.php?search=${encodeURIComponent(query)}&limit=360`;
     
       try {
         const response = await fetch(apiURL);
         const data = await response.json();
-        console.log("API Response:", data);
     
         if (data && Array.isArray(data.products) && data.products.length > 0) {
           setFilteredProducts(data.products);

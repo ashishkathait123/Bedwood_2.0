@@ -7,14 +7,13 @@ import 'swiper/css/autoplay';
 import { Navigation, Autoplay } from 'swiper/modules';
 
 const collections = [
-  { image: '/collections/1.png', title: '', paragraph: '', link: '/productlist?categoryId=67076494cb95d84fec71ff78' },
-  { image: '/collections/2.png', title: '', paragraph: '', link: '/productlist?categoryId=670764abcb95d84fec71ff96' },
-  { image: '/collections/3.png', title: '', paragraph: '', link: '/productlist?categoryId=67075e3299a97c3e8c6512f2' },
-  { image: '/collections/4.png', title: '', paragraph: '', link: '/productlist?categoryId=670a3b24cb95d84fec72238b' },
-  { image: '/collections/5.png', title: '', paragraph: '', link: '/productlist?categoryId=670a3b3bcb95d84fec7223be' },
-  { image: '/collections/6.png', title: '', paragraph: '', link: '/productlist?categoryId=670a3b0ecb95d84fec72235b' },
-  { image: '/collections/7.png', title: '', paragraph: '', link: '/productlist?categoryId=67075e3299a97c3e8c6512f2' },
-  { image: '/collections/8.png', title: '', paragraph: '', link: '/productlist?categoryId=670a3e2ecb95d84fec722485' }
+  { image: '/collections/1.png', title: '', paragraph: '', link: '/products?subcategory=Living+Sofa&sort=1' },
+  { image: '/collections/2.png', title: '', paragraph: '', link: '/products?subcategory=Dining+Table&sort=1' },
+  { image: '/collections/3.png', title: '', paragraph: '', link: '/products?subcategory=Double+Bed&sort=1' },
+  { image: '/collections/4.png', title: '', paragraph: '', link: '/products?subcategory=Office+Table&sort=1' },
+  { image: '/collections/6.png', title: '', paragraph: '', link: '/products?subcategory=Study+Table&sort=1' },
+  { image: '/collections/7.png', title: '', paragraph: '', link: '/products?subcategory=Hotel+Bed&sort=1' },
+  { image: '/collections/8.png', title: '', paragraph: '', link: '/products?subcategory=Outdoor+Furniture&sort=1' }
 ];
 
 const CollectionsSection = () => {

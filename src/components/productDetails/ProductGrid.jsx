@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 const MergedProductComponent = () => {
   const { id } = useParams();
-  const [category, setCategory] = useState(null);
+  const [subcategory, setCategory] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+
   const navigate = useNavigate();
+
   const handleQuickView = (product) => {
     navigate('/productDetails', { state: { product } });
   };
+
   useEffect(() => {
     const fetchProductDetails = async () => {
+      if(!id) return;
+      
       try {
-        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php?id=${id}`);
+        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php?limit=350`);
         const data = await response.json();
-
         const product = data.products.find((p) => String(p.id) === String(id));
+
         if (product) {
-          setCategory(product.category);
+          setCategory(product.subcategory);
         } else {
           console.error("Product not found.");
           setIsError(true);
@@ -35,14 +40,14 @@ const MergedProductComponent = () => {
   }, [id]);
 
   useEffect(() => {
-    if (!category) return;
+    if (!subcategory) return;
 
     const fetchRelatedProducts = async () => {
       try {
-        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php?category=${category}`);
+        const response = await fetch(`https://experthometutorsacademy.com/getProducts.php?limit=350`);
         const data = await response.json();
 
-        const filteredProducts = data.products.filter((p) => String(p.id) !== String(id));
+        const filteredProducts = data.products.filter((p) => p.subcategory === subcategory && String(p.id) !== String(id));
         setRelatedProducts(filteredProducts);
       } catch (error) {
         console.error("Error fetching related products:", error);
@@ -53,7 +58,7 @@ const MergedProductComponent = () => {
     };
 
     fetchRelatedProducts();
-  }, [category, id]);
+  }, [subcategory, id]);
 
   if (isLoading) {
     return (
@@ -69,13 +74,13 @@ const MergedProductComponent = () => {
 
   return (
     <section className="pb-12 min-h-screen">
-  <div className="text-center py-10">
-    <h1 className="text-3xl font-semibold text-gray-800">Related Products</h1>
-    <p className="mt-2 text-md text-gray-500">Browse similar products from this category</p>
-  </div>
+      <div className="text-center py-10">
+        <h1 className="text-3xl font-semibold text-gray-800">Related Products</h1>
+        <p className="mt-2 text-md text-gray-500">Browse similar products from this category</p>
+      </div>
 
-  <div className="py-10 px-2 lg:px-8 mx-auto">
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="py-10 px-2 lg:px-8 mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {relatedProducts.length > 0 ? (
         relatedProducts.map((product) => (
           <div key={product.id} className="relative w-full h-[270px] overflow-hidden rounded-lg shadow-lg group">
@@ -102,9 +107,8 @@ const MergedProductComponent = () => {
         <p className="text-center col-span-full text-gray-500">No related products found.</p>
       )}
     </div>
-  </div>
-</section>
-
+      </div>
+    </section>
   );
 };
 

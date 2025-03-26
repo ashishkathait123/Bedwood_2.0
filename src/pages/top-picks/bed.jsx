@@ -9,7 +9,6 @@ const BedList = () => {
     useEffect(() => {
         axios.get("http://localhost/mybed/fetch_beds.php")
             .then(response => {
-                console.log("Fetched Data:", response.data);
                 setBeds(response.data);
                 setLoading(false);
             })
