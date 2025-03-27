@@ -20,6 +20,8 @@ const EssentialsSection = () => {
     
   };
 
+  //there is an suto maotnift aoaa
+
   return (
     <section className="w-full py-12 px-6 bg-white">
       {/* Text Section */}

@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/pages/Navbar";
 import Footer from "@/pages/Footer";
 const pdfs = [
+  {id: 0, name: "Office Furniture", url: "/catalogs/office_furniture.pdf"},
   { id: 1, name: "Bed Design", url: "/catalogs/Bed Design.pdf" },
   { id: 2, name: "Bed Side Table", url: "/catalogs/Bed-side-Table.pdf" },
   { id: 3, name: "Bedwood-Design", url: "/catalogs/Bedwood-Design.pdf" },

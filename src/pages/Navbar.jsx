@@ -110,9 +110,10 @@ const handleSubCategoryClick = (subcategory) => {
       <div className="hidden md:flex items-center justify-center space-x-6 border-t bg-gray-50 py-2">
         {categories.map((category) => (
           <div key={category.name} className="relative group">
-            <button className="text-gray-700 hover:text-orange-500 px-4 py-2">
-              {category.name}
-            </button>
+           <button className="text-gray-700 hover:text-orange-500 px-4 py-2 flex items-center">
+  
+  {category.name}
+</button>
             {category.subCategories?.length > 0 && (
               <div
                 className="absolute left-0 min-w-[180px] bg-white shadow-lg border rounded-lg 
@@ -164,6 +165,13 @@ const handleSubCategoryClick = (subcategory) => {
                   )
                 }
               >
+                {category.image_url && (
+    <img
+      src={category.image_url}
+      alt={category.name}
+      className="w-8 h-8 rounded-full mr-2"
+    />
+  )}
                 {category.name}
               </button>
               {activeCategory === category &&
@@ -175,9 +183,11 @@ const handleSubCategoryClick = (subcategory) => {
                         onClick={() => handleSubCategoryClick(sub.name)}
                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-500 transition-all duration-300"
                       >
+                        
                         {sub.name}
-                      </button>
+                      </button> 
                     ))}
+                    
                   </div>
                 )}
             </div>
