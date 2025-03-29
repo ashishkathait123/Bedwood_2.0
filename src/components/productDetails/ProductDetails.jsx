@@ -19,6 +19,8 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
   const [showModal, setShowModal] = useState(false);
   const getBooleanValue = (value) => value ? "Yes" : "No";
   const [loading, setLoading] = useState(true); // Add loading state
+  const [mainImage, setMainImage] = useState("");
+
 
   const getValueOrNA = (value) => {
     if (value === null || value === undefined || value === '') {
@@ -106,6 +108,8 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
           
           if (product) {
             setSelectedProduct(product);
+            setMainImage(product.image_url);
+
           } else {
             console.error("Product not found");
             setSelectedProduct(null);
@@ -123,6 +127,9 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
 
     fetchProduct();
   }, [id]);
+  const handleImageClick = (image) => {
+    setMainImage(image);
+  };
 
   const handleAddToCart = (product, quantity) => {
     setCart((prevCart) => {
@@ -176,18 +183,29 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
       <Navbar />
       <main className="flex flex-col md:flex-row items-center pt-4 md:pt-6 px-4 md:px-8 lg:px-32">
         {/* Product Image */}
-        <div className="md:w-1/2  w-full flex justify-center items-center mb-4 md:mb-0">
+        <div className="md:w-1/2 w-full flex flex-col items-center mb-4 md:mb-0">
           <img
-            src={selectedProduct.image_url}
+            src={mainImage}
             alt={selectedProduct.name}
             className="w-full max-w-[450px] h-auto md:w-[500px] md:h-[500px] object-cover rounded-lg shadow-md"
           />
-        </div>
+          <div className="flex space-x-2 mt-4">
+            {[selectedProduct.image_url, ...(selectedProduct.optional_images || [])].map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Optional ${index + 1}`}
+                className={`w-20 h-20 object-cover rounded-lg cursor-pointer ${mainImage === image ? 'ring-2 ring-orange-500' : ''}`}
+                onClick={() => handleImageClick(image)}
+              />
+            ))}
+          </div>
+         </div>
 
-        {/* Product Details */}
-        <div className="w-full md:w-1/2 px-4 md:px-8 py-6 md:py-0 flex flex-col justify-start space-y-4">
+         {/* Product Details */}
+         <div className="w-full md:w-1/2 px-4 md:px-8 py-6 md:py-0 flex flex-col justify-start space-y-4">
           {/* Product Name & Category */}
-          <h2 className="text-2xl font-bold">{selectedProduct.name}</h2>
+           <h2 className="text-2xl font-bold">{selectedProduct.name}</h2>
           <p className="text-gray-600">{selectedProduct.category}</p>
 
           {/* Pricing Section */}
@@ -226,7 +244,6 @@ const ProductDetails = ({ onAddToCart, initialCount }) => {
                 +
               </button>
             </div>
-
             <button
               className="bg-orange-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-orange-500 transition"
               onClick={() => handleAddToCart(selectedProduct, count)}
